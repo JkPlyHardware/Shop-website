@@ -1,0 +1,181 @@
+
+/* Contact layout: Map left, form right */
+.contact-layout--map {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 36px);
+  width: 100%;
+}
+
+/* Map column */
+.contact-map-column {
+  min-width: 0;
+}
+
+/* Main map section */
+.shop-map {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: clamp(14px, 2vw, 22px);
+  border: 1px solid rgba(23, 77, 59, 0.14);
+  border-radius: 20px;
+  background: #f8f4ec;
+  color: #252925;
+}
+
+/* Remove extra outer spacing inside contact layout */
+.contact-map-column .shop-map {
+  margin: 0;
+}
+
+/* Map heading */
+.shop-map__heading {
+  margin-bottom: 18px;
+}
+
+.shop-map__eyebrow {
+  margin: 0 0 7px;
+  color: #174d3b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.shop-map__heading h2 {
+  margin: 0;
+  color: #174d3b;
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.shop-map__heading > p:last-child {
+  margin: 8px 0 0;
+  color: #555d55;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Map frame */
+.shop-map__frame {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(23, 77, 59, 0.18);
+  border-radius: 14px;
+  background: #e9e5dc;
+  box-shadow: 0 10px 25px rgba(37, 41, 37, 0.08);
+}
+
+.shop-map__frame iframe {
+  display: block;
+  width: 100%;
+  height: clamp(360px, 42vw, 520px);
+  border: 0;
+}
+
+/* Directions link */
+.shop-map__directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #174d3b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.shop-map__directions:hover {
+  color: #d66b3d;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Right column: details and enquiry form */
+.contact-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.contact-side .contact-details,
+.contact-side .enquiry-form {
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+@media (max-width: 900px) {
+  .contact-layout--map {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .shop-map__frame iframe {
+    height: 400px;
+  }
+
+  .contact-side {
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+@media (max-width: 768px) {
+  .contact-layout--map {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .contact-map-column {
+    width: 100%;
+  }
+
+  .contact-side {
+    width: 100%;
+  }
+
+  .shop-map {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .shop-map__frame iframe {
+    height: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-map {
+    padding: 12px;
+  }
+
+  .shop-map__frame {
+    border-radius: 12px;
+  }
+
+  .shop-map__frame iframe {
+    height: 280px;
+  }
+
+  .shop-map__heading h2 {
+    font-size: 23px;
+  }
+
+  .shop-map__directions {
+    font-size: 13px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .shop-map__directions {
+    transition: none;
+  }
+}
