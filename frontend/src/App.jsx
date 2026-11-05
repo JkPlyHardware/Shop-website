@@ -151,6 +151,14 @@ ${form.message}
     const whatsappURL = `https://wa.me/919661382988?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappURL, "_blank");
+    setForm({
+  customer_name: "",
+  name: "",
+  phone: "",
+  email: "",
+  product_name: "",
+  message: "",
+});
 
     setNotice({
       type: "success",
