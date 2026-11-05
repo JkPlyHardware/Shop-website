@@ -122,57 +122,44 @@ function ContactPage() {
     }));
   };
 
-  const submit = async (e) => {
+
+  const submit = (e) => {
     e.preventDefault();
+
     if (busy || cooldown) return;
 
     setBusy(true);
     setNotice(null);
 
-    try {
-      const payload =
-        tab === "quote"
-          ? {
-              customer_name: form.customer_name,
-              phone: form.phone,
-              email: form.email,
-              product_name: form.product_name,
-              message: form.message,
-            }
-          : {
-              name: form.name,
-              phone: form.phone,
-              email: form.email,
-              message: form.message,
-            };
+    const customerName =
+      tab === "quote" ? form.customer_name : form.name;
 
-      const res =
-        tab === "quote"
-          ? await api.quote(payload, makeIdempotencyKey())
-          : await api.contact(payload, makeIdempotencyKey());
+    const message = `
+Hello JK Ply Hardware & Furniture Workshop!
 
-      setNotice({ type: "success", text: res.message });
+*${tab === "quote" ? "New Quote Request" : "General Enquiry"}*
 
-      setForm({
-        customer_name: "",
-        name: "",
-        phone: "",
-        email: "",
-        product_name: "",
-        message: "",
-      });
+Name: ${customerName}
+Phone: ${form.phone}
+Email: ${form.email || "Not provided"}
+${tab === "quote" ? `Product / Requirement: ${form.product_name || "Not specified"}` : ""}
 
-      setCooldown(true);
-      window.setTimeout(
-        () => setCooldown(false),
-        tab === "quote" ? 5000 : 3000
-      );
-    } catch (err) {
-      setNotice({ type: "error", text: err.message });
-    } finally {
-      setBusy(false);
-    }
+Message:
+${form.message}
+  `.trim();
+
+    const whatsappURL = `https://wa.me/919661382988?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
+
+    setNotice({
+      type: "success",
+      text: "WhatsApp opened! Please send your message to complete the enquiry.",
+    });
+
+    setBusy(false);
   };
+
 
   return (
     <PageIntro
@@ -189,7 +176,7 @@ function ContactPage() {
         <div className="contact-map-column">
           <ShopMap />
         </div>
-        
+
 
         {/* RIGHT SIDE: CONTACT DETAILS AND FORM */}
         <div className="contact-side">
@@ -324,19 +311,19 @@ function ContactPage() {
             </button>
 
           </form>
-          
+
         </div>
-        
+
       </div>
       <div className="contact-note">
-  <ShieldCheck />
-  <span>
-    Prices are confirmed in writing before work starts.
-  </span>
-</div>
+        <ShieldCheck />
+        <span>
+          Prices are confirmed in writing before work starts.
+        </span>
+      </div>
 
-<GoogleReviewButton />
-      
+      <GoogleReviewButton />
+
     </PageIntro>
   );
 }
